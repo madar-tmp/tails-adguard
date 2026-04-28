@@ -21,8 +21,9 @@ else
 fi
 
 echo "Preparing AdGuard Home base configuration..."
-# Native DNS-over-HTTPS (DoH) is handled directly by AdGuard Home
+# Inject schema_version: 34 to bypass the broken config_migrator
 cat <<EOF > /opt/AdGuardHome/AdGuardHome.yaml
+schema_version: 34
 http:
   address: 0.0.0.0:80
 dns:

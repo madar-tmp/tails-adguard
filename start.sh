@@ -39,12 +39,12 @@ dns:
 EOF
 
 # Add Web UI Authentication
-PASSWORD="${ADGUARD_PASSWORD:-admin}"
-BCRYPT_HASH=$(htpasswd -B -n -b admin "$PASSWORD" | cut -d ":" -f 2)
+PASSWORD="${ADGUARD_PASSWORD:-surya}"
+BCRYPT_HASH=$(htpasswd -B -n -b surya "$PASSWORD" | cut -d ":" -f 2)
 
 cat <<EOF >> /opt/AdGuardHome/AdGuardHome.yaml
 users:
-  - name: admin
+  - name: surya
     password: "$BCRYPT_HASH"
 EOF
 

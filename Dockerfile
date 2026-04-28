@@ -12,11 +12,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     apache2-utils \
     && rm -rf /var/lib/apt/lists/*
 
-# Download and install Tailscale binaries
-RUN curl -fsSL https://pkgs.tailscale.com/stable/tailscale_1.62.1_amd64.tgz | tar xz -C /tmp && \
-    mv /tmp/tailscale_*/tailscale /usr/local/bin/ && \
-    mv /tmp/tailscale_*/tailscaled /usr/local/bin/ && \
-    rm -rf /tmp/tailscale_*
+# Add Tailscale's official APT repository and install via package manager
+RUN curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.noarmor.gpg | tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null && \
+    curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.tailscale-keyring.list | tee /etc/apt/sources.list.d/tailscale.list && \
+    apt-get update && apt-get install -y --no-install-recommends tailscale && \
+    rm -rf /var/lib/apt/lists/*
 
 # Download and install AdGuard Home
 RUN curl -L -o /tmp/AdGuardHome.tar.gz https://github.com/AdguardTeam/AdGuardHome/releases/latest/download/AdGuardHome_linux_amd64.tar.gz && \

@@ -27,7 +27,8 @@ When deploying this project (e.g., on Render), you must configure the following 
 | Variable | Status | Description |
 | :--- | :--- | :--- |
 | `TAILSCALE_AUTHKEY` | **Required** | Your Tailscale authentication key. It is highly recommended to generate a **Reusable** and **Ephemeral** key from the [Tailscale Admin Console](https://login.tailscale.com/admin/settings/keys). |
-| `ADGUARD_PASSWORD` | *Optional* | The password used to log into the AdGuard Home Web UI. If left blank, it defaults to `admin`. Username is always `admin`. |
+| `ADGUARD_USERNAME` | *Optional* | Your custom username for the AdGuard Home Web UI. If left blank, it defaults to `surya`. |
+| `ADGUARD_PASSWORD` | *Optional* | Your custom password for the AdGuard Home Web UI. If left blank, it defaults to `surya`. |
 
 ---
 
@@ -36,7 +37,7 @@ When deploying this project (e.g., on Render), you must configure the following 
 1. Deploy the Dockerfile to a Render Web Service.
 2. Wait for the build and deployment process to finish (check the Render logs for `Running AdGuard Home boot sequence...`).
 3. Access the dashboard by visiting your public Render URL (e.g., `https://tails-adguard.onrender.com/`) or by navigating to `http://tails-adguard/` if you are connected to Tailscale.
-4. Log in using the username **`admin`** and the password you set in your `ADGUARD_PASSWORD` environment variable.
+4. Log in using the custom credentials you defined in `ADGUARD_USERNAME` and `ADGUARD_PASSWORD` (or `surya` / `surya` if you left them blank).
 
 ---
 
@@ -53,22 +54,8 @@ To force your devices to use this AdGuard container to block ads, you need to co
 
 Your Tailscale-connected devices will now route all DNS queries through your private AdGuard Home server.
 
----
-
-## ⏰ Keep-Alive (For Free Tier Users)
-
-If you are deploying this on Render's Free Web Service tier, the container will spin down after 15 minutes of inactivity, which will break your DNS. 
-
-To keep the DNS server awake permanently:
-1. Create a free account on [cron-job.org](https://cron-job.org/).
-2. Create a new cron job targeting your AdGuard login page: `https://your-app-name.onrender.com/login.html` *(Note: You must target `/login.html` to prevent 302 redirect errors)*.
-3. Set the execution schedule to run every **10 to 14 minutes**.
-4. Save the job. Your DNS server will now stay awake 24/7.
-
----
-
 ## 📜 License & Credits
 
 **MIT License**
 
-Designed and built with ❤️ by **Surya...!!!** Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, of the Software.
+Designed and built with ❤️ by **Surya...!!!** Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software.

@@ -1,5 +1,5 @@
 #!/bin/bash
-# made By Surya...!!! (Optimized Native Encryption - No Adlists)
+# made By Surya...!!! (Optimized Native Encryption)
 
 # Create directories
 mkdir -p /var/lib/tailscale
@@ -39,12 +39,13 @@ dns:
 EOF
 
 # Add Web UI Authentication
+USERNAME="${ADGUARD_USERNAME:-surya}"
 PASSWORD="${ADGUARD_PASSWORD:-surya}"
-BCRYPT_HASH=$(htpasswd -B -n -b surya "$PASSWORD" | cut -d ":" -f 2)
+BCRYPT_HASH=$(htpasswd -B -n -b "$USERNAME" "$PASSWORD" | cut -d ":" -f 2)
 
 cat <<EOF >> /opt/AdGuardHome/AdGuardHome.yaml
 users:
-  - name: surya
+  - name: "$USERNAME"
     password: "$BCRYPT_HASH"
 EOF
 
